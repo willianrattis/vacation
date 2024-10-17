@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contagem Regressiva para as Férias</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #1e1e1e;
+      color: #ffffff;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .countdown-container {
+      text-align: center;
+    }
+    h1, h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    .time {
+      font-size: 6rem;
+      font-weight: bold;
+      letter-spacing: 0.05em;
+      color: #ffffff;
+      background-color: #333;
+      border-radius: 15px;
+      padding: 20px 40px;
+      margin-bottom: 20px;
+    }
+    .countdown-unit {
+      display: inline-block;
+      text-align: center;
+    }
+    /* Animação de piscar rápida */
+    .blinking-text {
+      animation: blinking 0.5s infinite;
+    }
+    @keyframes blinking {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="countdown-container">
+    <h1>Faltam</h1>
+    <div id="countdown" class="time">
+      <div class="countdown-unit" id="days">00</div>d :
+      <div class="countdown-unit" id="hours">00</div>h :
+      <div class="countdown-unit" id="minutes">00</div>m :
+      <div class="countdown-unit" id="seconds">00</div>s
+    </div>
+    <h2 class="blinking-text">Para as Férias do Wil!</h2>
+  </div>
+
+  <script>
+    // Data e hora de saída para as férias
+    const vacationDate = new Date('October 17, 2024 17:30:00').getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const timeLeft = vacationDate - now;
+
+      const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+      document.getElementById('days').innerHTML = days;
+      document.getElementById('hours').innerHTML = hours;
+      document.getElementById('minutes').innerHTML = minutes;
+      document.getElementById('seconds').innerHTML = seconds;
+
+      if (timeLeft < 0) {
+        clearInterval(interval);
+        document.getElementById('countdown').innerHTML = 'Já está de férias!';
+      }
+    }
+
+    // Inicia o contador automaticamente
+    const interval = setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
